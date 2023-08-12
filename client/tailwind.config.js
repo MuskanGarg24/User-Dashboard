@@ -6,6 +6,12 @@ module.exports = {
     './app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
+    colors: {
+      'bgColor': '#FAFBFF',
+      'primaryColor': '#1E2875',
+      'secondaryColor': '#FFFFFF',
+      'redColor': '#FF0000'
+    }
   },
   daisyui: {
     themes: ["light"],
