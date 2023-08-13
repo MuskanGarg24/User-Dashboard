@@ -7,10 +7,14 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'bgColor': '#FAFBFF',
+      'bgColor': '#fafbff',
       'primaryColor': '#1E2875',
       'secondaryColor': '#FFFFFF',
-      'redColor': '#FF0000'
+      'smokeColor': '#f0effa',
+      'redColor': '#FF0000',
+      'goldenColor': '#ffce10',
+      'borderColor': '#ebebee',
+      'blackColor': '#1f1f1f;'
     }
   },
   daisyui: {
