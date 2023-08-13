@@ -24,7 +24,7 @@ const LoginForm = () => {
         try {
             const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
             sessionStorage.setItem('userData', JSON.stringify(response.data));
-            router.push("/user");
+            router.push("/user/profile");
         }
         catch (error) {
             setError("Enter correct credentials")

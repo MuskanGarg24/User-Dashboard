@@ -8,7 +8,7 @@ import { IoNotificationsOutline } from "react-icons/io5";
 import { BiChevronRight } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 
-export default function Page({ children }) {
+export default function layout({ children }) {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
 
@@ -36,10 +36,10 @@ export default function Page({ children }) {
             <div className="z-10 bg-secondaryColor flex justify-between items-center py-2 px-4 border-2 border-borderColor sticky top-0 w-full">
                 <div className="flex">
                     <div>
-                        <Image alt="menu" src={menuIcon} className="cursor-pointer w-10 object-cover lg:hidden" onClick={toggleSidebar} />
+                        <Image alt="menu" src={menuIcon} className="cursor-pointer w-10 object-cover md:hidden" onClick={toggleSidebar} />
                     </div>
                     <div>
-                        <Image alt="logo" src={oruLogo} className="cursor-pointer object-cover ml-1 mt-1 lg:hidden" />
+                        <Image alt="logo" src={oruLogo} className="cursor-pointer object-cover ml-1 mt-1 md:hidden" />
                     </div>
                 </div>
                 <div className="flex md:mr-7 cursor-pointer">
@@ -65,18 +65,18 @@ export default function Page({ children }) {
             </div>
             <div
                 className={`${sidebarVisible ? "translate-x-0" : "-translate-x-full"
-                    } sidebar lg:-translate-x-0 bg-secondaryColor border-2 border-borderColor z-10 fixed top-0 h-screen w-[300px] px-5 cursor-pointer transform transition-transform duration-500 ease-in-out`}
+                    } sidebar md:-translate-x-0 bg-secondaryColor border-2 border-borderColor z-10 fixed top-0 h-screen w-[300px] px-5 cursor-pointer transform transition-transform duration-500 ease-in-out`}
             >
                 <div>
                     <div className="text-center text-xl font-bold mt-9">
                         <span className="border-2 border-borderColor px-12 py-3 rounded-lg">Dashboard</span>
                     </div>
                     <div className="text-primaryColor mt-16">
-                        <div className="flex mb-5">
+                        <div className="flex mb-3">
                             <BiChevronRight size={25} className="mt-3" />
                             <p className="border-2 border-primaryColor ml-5 text-lg px-12 py-3 rounded-lg">My Profile</p>
                         </div>
-                        <div className="flex mb-5">
+                        <div className="flex mb-3">
                             <BiChevronRight size={25} className="mt-3" />
                             <p className="ml-5 text-lg px-7 py-3 rounded-lg">My Connections</p>
                         </div>
