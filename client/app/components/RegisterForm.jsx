@@ -35,8 +35,9 @@ const RegisterForm = () => {
         }
         // if password validates, signup
         try {
-            const response = await axios.post("/api/auth/register", res);
-            console.log(response);
+            const response = await axios.post("http://localhost:5000/api/auth/register", res);
+            const userId = response.data.data.userId;
+            router.push(`/verify?userId=${userId}`);
         } catch (error) {
             console.log(error);
         }
@@ -80,7 +81,9 @@ const RegisterForm = () => {
                     />
                 </div>
                 <div className="text-center">
+                    {/* <Link href="/verify"> */}
                     <button className="bg-primaryColor text-secondaryColor w-full max-w-xs mt-5 px-1 py-2 rounded-lg">Sign Up</button>
+                    {/* </Link> */}
                 </div>
             </form>
             {error && (

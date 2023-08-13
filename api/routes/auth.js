@@ -138,27 +138,53 @@ router.post("/verifyOTP", async (req, res) => {
 });
 
 // Login
+// router.post("/login", async (req, res) => {
+//     try {
+//         const email = await req.body.email;
+//         const password = await req.body.password;
+//         User.find({ email: email }, function (err, foundUser) {
+//             if (err) {
+//                 console.log(err);
+//             } else {
+//                 if (foundUser) {
+//                     bcrypt.compare(password, foundUser.password, function (err, result) {
+//                         if (result == true) {
+//                             console.log("User logged in successfully!");
+//                             res.json(foundUser);
+//                         }
+//                     });
+//                 }
+//             }
+//         });
+//     } catch (err) {
+//         console.log(err);
+//     }
+// });
+
 router.post("/login", async (req, res) => {
     try {
-        const email = await req.body.email;
-        const password = await req.body.password;
-        User.findOne({ email: email }, function (err, foundUser) {
-            if (err) {
-                console.log(err);
+        const { email, password } = req.body;
+
+        const foundUser = await User.findOne({ email: email });
+
+        if (foundUser) {
+            const result = await bcrypt.compare(password, foundUser.password);
+            if (result) {
+                console.log("User logged in successfully!");
+                res.json(foundUser);
             } else {
-                if (foundUser) {
-                    bcrypt.compare(password, foundUser.password, function (err, result) {
-                        if (result == true) {
-                            console.log("User logged in successfully!");
-                            res.json(foundUser);
-                        }
-                    });
-                }
+                console.log("Invalid password");
+                res.status(401).json({ message: "Invalid credentials" });
             }
-        });
+        } else {
+            console.log("User not found");
+            res.status(404).json({ message: "User not found" });
+        }
     } catch (err) {
         console.log(err);
+        res.status(500).json({ message: "Internal server error" });
     }
 });
+
 
 module.exports = router;
