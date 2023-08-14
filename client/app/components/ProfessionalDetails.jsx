@@ -1,13 +1,27 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Star from '../../public/stars.png';
+import axios from 'axios';
 
 const ProfessionalDetails = () => {
+
     const [editMode, setEditMode] = useState(false);
-    const [professionalText, setProfessionalText] = useState(
-        'This are the professional details shown to users in the app.'
-    );
+    const [professionalText, setProfessionalText] = useState('');
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user;
+                setProfessionalText(userData.professional || '');
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEdit = () => {
         setEditMode(true);

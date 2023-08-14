@@ -1,24 +1,44 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const BasicDetails = () => {
     const fields = [
-        { id: 'name', label: 'Your Name', value: 'Muskan Garg' },
-        { id: 'email', label: 'Email', value: 'xyz@gmail.com' },
-        { id: 'phoneNumber', label: 'Phone Number', value: '+91 9874562130' }
+        { id: 'name', label: 'Your Name' },
+        { id: 'email', label: 'Email' },
+        { id: 'phone', label: 'Phone Number' }
     ];
 
     const [editStates, setEditStates] = useState({
         name: false,
         email: false,
-        phoneNumber: false
+        phone: false
     });
 
     const [values, setValues] = useState({
-        name: 'Muskan Garg',
-        email: 'xyz@gmail.com',
-        phoneNumber: '+91 9874562130'
+        name: '',
+        email: '',
+        phone: ''
     });
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user;
+                console.log(userData);
+                setValues({
+                    name: userData.name,
+                    email: userData.email,
+                    phone: userData.phone
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEdit = (fieldId) => {
         setEditStates({ ...editStates, [fieldId]: true });

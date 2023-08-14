@@ -1,14 +1,27 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Badge from "../../public/badge.png";
+import axios from 'axios';
 
 const Certifications = () => {
     const [editable, setEditable] = useState(false);
-    const [certifications, setCertifications] = useState([
-        { id: 1, name: "Python", institution: "Coding Ninjas" }
-    ]);
-    const [newCertification, setNewCertification] = useState({ name: "", institution: "" });
+    const [certifications, setCertifications] = useState([]);
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        // Fetch user's certifications information here using axios or fetch
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user; // Update this based on your API response structure
+                setCertifications(userData.certifications || []); // Populate certifications state with fetched data
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []); // Empty dependency array to run the effect only once
 
     const handleEditClick = () => {
         setEditable(true);
@@ -20,12 +33,6 @@ const Certifications = () => {
 
     const handleCancelClick = () => {
         setEditable(false);
-        setNewCertification({ name: "", institution: "" });
-    };
-
-    const handleAddCertification = () => {
-        setCertifications([...certifications, { ...newCertification, id: Date.now() }]);
-        setNewCertification({ name: "", institution: "" });
     };
 
     return (
@@ -70,7 +77,7 @@ const Certifications = () => {
                                 <input
                                     type="text"
                                     className="mt-2 w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
-                                    value={certification.institution}
+                                    value={certification.issued_by}
                                     onChange={(e) => {
                                         const updatedCertifications = certifications.map(cert => {
                                             if (cert.id === certification.id) {
@@ -85,7 +92,7 @@ const Certifications = () => {
                         ) : (
                             <div>
                                 <p className="text-lg">{certification.name}</p>
-                                <p>{certification.institution}</p>
+                                <p>{certification.issued_by}</p>
                             </div>
                         )}
                     </div>

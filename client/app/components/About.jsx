@@ -1,11 +1,24 @@
-"use client";
-import React, { useState } from 'react';
+"use client"
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const About = () => {
     const [editMode, setEditMode] = useState(false);
-    const [aboutText, setAboutText] = useState(
-        'Lorem ipsum dolor sit amet consectetur. Erat auctor a aliquam vel congue luctus. Leo diam cras neque mauris ac arcu elit ipsum dolor sit amet consectetur.'
-    );
+    const [aboutText, setAboutText] = useState('');
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user;
+                setAboutText(userData.about || '');
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEdit = () => {
         setEditMode(true);

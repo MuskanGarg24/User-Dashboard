@@ -1,14 +1,33 @@
 "use client"
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 const Education = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState({
-        institution: "IIT Hyderabad",
-        date: "2010 - 2014",
-        degree: "Btech",
-        description: "Lorem ipsum dolor sit amet consectetur. Erat auctor a aliquam vel congue luctus. Leo diam cras neque mauris ac arcu elit ipsum dolor sit amet consectetur."
+        institute_name: '',
+        degree_name: '',
+        start: '',
+        end: '',
+        description: '',
     });
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        // Fetch user's education details information here using axios or fetch
+        axios
+            .get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user; // Update this based on your API response structure
+                const educationDetails = userData.education[0] || {};
+                setEditedContent(educationDetails); // Populate editedContent state with fetched data
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -53,12 +72,12 @@ const Education = () => {
                         <input
                             type="text"
                             name="institution"
-                            value={editedContent.institution}
+                            value={editedContent.institute_name}
                             onChange={handleChange}
                             className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-32"
                         />
                     ) : (
-                        <h1 className="text-lg text-primaryColor">{editedContent.institution}</h1>
+                        <h1 className="text-lg text-primaryColor">{editedContent.institute_name}</h1>
                     )}
                 </div>
                 <div className="flex justify-between mt-2">
@@ -67,12 +86,12 @@ const Education = () => {
                             <input
                                 type="text"
                                 name="date"
-                                value={editedContent.date}
+                                value={editedContent.start + "-" + editedContent.end}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-24"
                             />
                         ) : (
-                            <p>{editedContent.date}</p>
+                            <p>{editedContent.start + "-" + editedContent.end}</p>
                         )}
                     </div>
                     <div>
@@ -80,12 +99,12 @@ const Education = () => {
                             <input
                                 type="text"
                                 name="degree"
-                                value={editedContent.degree}
+                                value={editedContent.degree_name}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-16"
                             />
                         ) : (
-                            <p>{editedContent.degree}</p>
+                            <p>{editedContent.degree_name}</p>
                         )}
                     </div>
                 </div>

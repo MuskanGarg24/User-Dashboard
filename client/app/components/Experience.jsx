@@ -1,17 +1,33 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Logo from "../../public/oru_logo.png";
+import axios from 'axios';
 
 const Experience = () => {
     const initialExperience = {
-        years: "7 Years (2014-2021)",
-        company: "Coding Ninjas",
-        role: "Full Stack Developer"
+        years: "7",
+        company: "i",
+        role: "i"
     };
 
-    const [experiences, setExperiences] = useState([initialExperience]);
-    const [editedExperienceIndex, setEditedExperienceIndex] = useState(-1);
+    const [experiences, setExperiences] = useState([]);
+    const [editedExperienceIndex, setEditedExperienceIndex] = useState("");
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        // Fetch user's experience details information here using axios or fetch
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user; // Update this based on your API response structure
+                setExperiences(userData.experience || []); // Populate experiences state with fetched data
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEditClick = (index) => {
         if (index === editedExperienceIndex) {
@@ -20,7 +36,6 @@ const Experience = () => {
             setEditedExperienceIndex(index);
         }
     }
-
     const handleCancelClick = () => {
         setEditedExperienceIndex(-1);
     }
@@ -56,12 +71,12 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
-                                        value={experience.years}
+                                        value={ experience.start + "-" + experience.end}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'years', index)}
                                     />
                                 ) : (
-                                    experience.years
+                                    experience.start + "-" + experience.end
                                 )}
                             </p>
                             <p className="text-[#1F1F1FB2]">
@@ -88,6 +103,18 @@ const Experience = () => {
                                     />
                                 ) : (
                                     experience.role
+                                )}
+                            </p>
+                            <p>
+                                {editedExperienceIndex === index ? (
+                                    <input
+                                        type="text"
+                                        value={experience.job_type}
+                                        className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
+                                        onChange={(e) => handleInputChange(e, 'role', index)}
+                                    />
+                                ) : (
+                                    experience.job_type
                                 )}
                             </p>
                         </div>

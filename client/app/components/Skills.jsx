@@ -1,39 +1,49 @@
 "use client"
-import React, { useState } from 'react';
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 
 const Skills = () => {
     const [editMode, setEditMode] = useState(false);
-    const [skills, setSkills] = useState(['NextJS', 'Typescript']);
-    const [editedSkills, setEditedSkills] = useState([...skills]);
+    const [skills, setSkills] = useState('');
+    const [editedSkills, setEditedSkills] = useState('');
     const [newSkill, setNewSkill] = useState('');
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        axios.get(`http://localhost:5000/api/user/${userId}`)
+            .then(response => {
+                const userData = response.data.user;
+                setSkills(userData.skills || '');
+                setEditedSkills(userData.skills || '');
+            })
+            .catch(error => {
+                console.error('Error fetching user data:', error);
+            });
+    }, []);
 
     const handleEdit = () => {
         setEditMode(true);
-        setEditedSkills([...skills]);
+        setEditedSkills(skills);
     };
 
     const handleSave = () => {
         setEditMode(false);
-        setSkills([...editedSkills]);
+        setSkills(editedSkills);
     };
 
     const handleCancel = () => {
         setEditMode(false);
     };
 
-    const handleEditSkill = (index, value) => {
-        const updatedSkills = [...editedSkills];
-        updatedSkills[index] = value;
-        setEditedSkills(updatedSkills);
-    };
-
-    const handleChange = (index, event) => {
-        handleEditSkill(index, event.target.value);
+    const handleChange = event => {
+        setEditedSkills(event.target.value);
     };
 
     const handleAddSkill = () => {
         if (newSkill.trim() !== '') {
-            setEditedSkills([...editedSkills, newSkill]);
+            setEditedSkills(editedSkills + (editedSkills ? ', ' : '') + newSkill);
             setNewSkill('');
         }
     };
@@ -65,16 +75,14 @@ const Skills = () => {
                 {editMode ? (
                     <>
                         <ul>
-                            {editedSkills.map((skill, index) => (
-                                <li key={index} className="mb-3">
-                                    <input
-                                        type="text"
-                                        value={skill}
-                                        onChange={(e) => handleChange(index, e)}
-                                        className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
-                                    />
-                                </li>
-                            ))}
+                            <li className="mb-3">
+                                <input
+                                    type="text"
+                                    value={skills}
+                                    className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
+                                />
+                            </li>
+
                             <li className="mb-3">
                                 <input
                                     type="text"
@@ -88,11 +96,9 @@ const Skills = () => {
                     </>
                 ) : (
                     <ul>
-                        {skills.map((skill, index) => (
-                            <li key={index} className="mb-3">
-                                {skill}
-                            </li>
-                        ))}
+                        <li className="mb-3">
+                            {skills}
+                        </li>
                     </ul>
                 )}
             </div>
