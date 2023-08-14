@@ -1,8 +1,33 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Image from "next/image";
-import Badge from "../../public/badge.png"
+import Badge from "../../public/badge.png";
 
 const Certifications = () => {
+    const [editable, setEditable] = useState(false);
+    const [certifications, setCertifications] = useState([
+        { id: 1, name: "Python", institution: "Coding Ninjas" }
+    ]);
+    const [newCertification, setNewCertification] = useState({ name: "", institution: "" });
+
+    const handleEditClick = () => {
+        setEditable(true);
+    };
+
+    const handleSaveClick = () => {
+        setEditable(false);
+    };
+
+    const handleCancelClick = () => {
+        setEditable(false);
+        setNewCertification({ name: "", institution: "" });
+    };
+
+    const handleAddCertification = () => {
+        setCertifications([...certifications, { ...newCertification, id: Date.now() }]);
+        setNewCertification({ name: "", institution: "" });
+    };
+
     return (
         <div className="mb-2 p-5 rounded-lg">
             <div className="flex justify-between">
@@ -10,17 +35,61 @@ const Certifications = () => {
                     <h1 className="text-lg">Certifications</h1>
                 </div>
                 <div>
-                    <button className="smoky-btn">Edit</button>
+                    {editable ? (
+                        <>
+                            <button className="smoky-btn" onClick={handleSaveClick}>Save</button>
+                            <button className="smoky-btn ml-2" onClick={handleCancelClick}>Cancel</button>
+                        </>
+                    ) : (
+                        <button className="smoky-btn" onClick={handleEditClick}>Edit</button>
+                    )}
                 </div>
             </div>
-            <div className="mt-3 border-2 border-borderColor sm:rounded-[3rem] sm:px-5 sm:py-4 sm:flex xl:space-x-28 lg:space-x-56 md:space-x-24 sm:space-x-28 px-3 py-2 rounded-xl">
-                <div className="flex justify-center">
-                    <Image src={Badge} alt="badge" className="w-10 sm:ml-5 mt-1"/>
+            <div className="mt-3 border-2 border-borderColor sm:rounded-[3rem] sm:px-5 sm:py-4 sm:flex sm:space-x-20 px-3 py-2 rounded-xl">
+                <div className="sm:block flex justify-center">
+                    <Image src={Badge} alt="badge" className="w-42 sm:w-full sm:ml-5 mt-1" />
                 </div>
-                <div className="text-center text-[#1F1F1FB2]">
-                    <p className="text-lg">Python</p>
-                    <p>Coding Ninjas</p>
-                </div>
+                {certifications.map(certification => (
+                    <div key={certification.id} className="text-[#1F1F1FB2] text-center sm:text-left">
+                        {editable ? (
+                            <>
+                                <input
+                                    type="text"
+                                    className="text-lg w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor mt-2 sm:mt-0"
+                                    value={certification.name}
+                                    onChange={(e) => {
+                                        const updatedCertifications = certifications.map(cert => {
+                                            if (cert.id === certification.id) {
+                                                return { ...cert, name: e.target.value };
+                                            }
+                                            return cert;
+                                        });
+                                        setCertifications(updatedCertifications);
+                                    }}
+                                />
+                                <input
+                                    type="text"
+                                    className="mt-2 w-[200px] p-1 rounded-md border-2 border-borderColor focus:outline-borderColor"
+                                    value={certification.institution}
+                                    onChange={(e) => {
+                                        const updatedCertifications = certifications.map(cert => {
+                                            if (cert.id === certification.id) {
+                                                return { ...cert, institution: e.target.value };
+                                            }
+                                            return cert;
+                                        });
+                                        setCertifications(updatedCertifications);
+                                    }}
+                                />
+                            </>
+                        ) : (
+                            <div>
+                                <p className="text-lg">{certification.name}</p>
+                                <p>{certification.institution}</p>
+                            </div>
+                        )}
+                    </div>
+                ))}
             </div>
         </div>
     )
