@@ -8,7 +8,10 @@ const AuthChecker = ({ children }) => {
     useEffect(() => {
         const userData = sessionStorage.getItem('userData');
         if (userData) {
-            router.replace('/dashboard');
+            router.push('/user/profile');
+        }
+        else{
+            router.push('/')
         }
     }, [router]);
     return children;
