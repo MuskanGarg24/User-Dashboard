@@ -7,9 +7,25 @@ import { useRouter } from 'next/navigation';
 const RegisterForm = () => {
 
     // credentials states 
-    const [username, setName] = useState("");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [phone, setPhone] = useState("");
+    const [about, setAbout] = useState("");
+    const [skills, setSkills] = useState("");
+    const [professional, setProfessional] = useState("");
+    const [certificationName, setCertificationName] = useState("");
+    const [certificationIssuedBy, setCertificationIssuedBy] = useState("");
+    const [experienceRole, setExperienceRole] = useState("");
+    const [experienceJobType, setExperienceJobType] = useState("");
+    const [experienceCompany, setExperienceCompany] = useState("");
+    const [experienceStart, setExperienceStart] = useState("");
+    const [experienceEnd, setExperienceEnd] = useState("");
+    const [educationInstituteName, setEducationInstituteName] = useState("");
+    const [educationDegreeName, setEducationDegreeName] = useState("");
+    const [educationStart, setEducationStart] = useState("");
+    const [educationEnd, setEducationEnd] = useState("");
+    const [educationDescription, setEducationDescription] = useState("");
     const [error, setError] = useState("");
 
     // router
@@ -18,14 +34,30 @@ const RegisterForm = () => {
     // handle form submit
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!username || !email || !password) {
+        if (!name || !email || !password) {
             setError("All fields are necessary");
             return;
         }
         const res = {
-            username,
+            name,
             email,
             password,
+            phone,
+            about,
+            skills,
+            professional,
+            certificationName,
+            certificationIssuedBy,
+            experienceRole,
+            experienceJobType,
+            experienceCompany,
+            experienceStart,
+            experienceEnd,
+            educationInstituteName,
+            educationDegreeName,
+            educationStart,
+            educationEnd,
+            educationDescription,
         };
         // password validation 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
@@ -80,10 +112,186 @@ const RegisterForm = () => {
                         onChange={(e) => { setPassword(e.target.value) }}
                     />
                 </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Phone</span>
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter your Phone"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => { setPhone(e.target.value) }}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">About</span>
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter your About"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => { setAbout(e.target.value) }}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Skills</span>
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter your skills"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => { setSkills(e.target.value) }}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Professional</span>
+                    </label>
+                    <input
+                        type="password"
+                        placeholder="Enter your Professional"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => { setProfessional(e.target.value) }}
+                    />
+                </div>
+                {/* New input fields for certifications */}
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Certification Name</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Certification Name"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setCertificationName(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Certification Issued By</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Issuing Authority"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setCertificationIssuedBy(e.target.value)}
+                    />
+                </div>
+                {/* New input fields for experience */}
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Experience Role</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Experience Role"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setExperienceRole(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Job Type</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Job Type"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setExperienceJobType(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Company</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Company"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setExperienceCompany(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Start</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Start Date"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setExperienceStart(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">End</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter End Date"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setExperienceEnd(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Insitute Name</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Institute Name"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setEducationInstituteName(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Degree Name</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Education degree name"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setEducationDegreeName(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Start</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Education Start"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setEducationStart(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">End</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Education End"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setEducationEnd(e.target.value)}
+                    />
+                </div>
+                <div className="form-control w-full max-w-xs mb-2 m-auto">
+                    <label className="label">
+                        <span className="label-text text-md font-semibold">Description</span>
+                    </label>
+                    <input
+                        type="text"
+                        placeholder="Enter Education Description"
+                        className="input input-bordered w-full max-w-xs"
+                        onChange={(e) => setEducationDescription(e.target.value)}
+                    />
+                </div>
                 <div className="text-center">
-                    {/* <Link href="/verify"> */}
                     <button className="bg-primaryColor text-secondaryColor w-full max-w-xs mt-5 px-1 py-2 rounded-lg">Sign Up</button>
-                    {/* </Link> */}
                 </div>
             </form>
             {error && (
