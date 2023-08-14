@@ -10,16 +10,15 @@ import { BiChevronRight } from "react-icons/bi";
 import { FiChevronDown } from "react-icons/fi";
 import AuthChecker from "../components/AuthChecker";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export default function layout({ children }) {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
-
     // Function to toggle sidebar visibility
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-
     // Add an event listener to close the sidebar when clicking outside
     useEffect(() => {
         const closeSidebarOnOutsideClick = (e) => {
@@ -33,8 +32,14 @@ export default function layout({ children }) {
         };
     }, [sidebarVisible]);
 
-
     const pathname = usePathname();
+    const router = useRouter();
+
+    // handle logout
+    const handleLogOut = () => {
+        sessionStorage.clear();
+        router.push('/');
+    }
 
     return (
         <AuthChecker >
@@ -97,7 +102,7 @@ export default function layout({ children }) {
                         </div>
                     </div>
                     <div className="flex items-center justify-center text-lg font-bold fixed bottom-10 w-[250px]">
-                        <p className="text-center">Log Out</p>
+                        <p className="text-center" onClick={handleLogOut}>Log Out</p>
                     </div>
                 </div>
                 <div className="md:ms-[300px] p-5">{children}</div>
