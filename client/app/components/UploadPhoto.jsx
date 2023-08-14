@@ -2,18 +2,44 @@
 import React, { useState, useRef } from 'react';
 import Image from "next/image";
 import Avatar from "../../public/user.png";
+import axios from 'axios';
 
 const UploadPhoto = () => {
     const [selectedImage, setSelectedImage] = useState(null);
+    const [uploading, setUploading] = useState(false);
     const fileInputRef = useRef(null);
 
     function handleImageChange(event) {
         const selectedFile = event.target.files[0];
-        setSelectedImage(URL.createObjectURL(selectedFile));
+        transformFile(selectedFile);
     }
 
-    function handleUploadButtonClick() {
-        fileInputRef.current.click();
+    const transformFile = (file) => {
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onloadend = () => {
+                setSelectedImage(reader.result)
+            }
+        } else {
+            setSelectedImage(null);
+        }
+    };
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    const uploadImage = async () => {
+        try {
+            setUploading(true);
+            const response = await axios.post(`http://localhost:5000/api/user/uploads/${userId}`, { 'image': selectedImage });
+            console.log("Image uploaded successfully:", response.data);
+            setUploading(false);
+            setSelectedImage(null);
+        } catch (error) {
+            console.log("Error uploading image:", error);
+            setUploading(false);
+        }
     }
 
     return (
@@ -26,20 +52,25 @@ const UploadPhoto = () => {
                 )}
             </div>
             <div className="sm:mt-[40px] mt-5">
-                <label className="smoky-btn cursor-pointer">
-                    Upload Photo
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleImageChange}
-                        ref={fileInputRef}
-                        className="hidden"
-                    />
-                </label>
+                {uploading ? (
+                    <button className="smoky-btn" disabled>Uploading...</button>
+                ) : selectedImage ? (
+                    <button className="smoky-btn" onClick={uploadImage}>Upload</button>
+                ) : (
+                    <label className="smoky-btn cursor-pointer">
+                        Upload Photo
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            ref={fileInputRef}
+                            className="hidden"
+                        />
+                    </label>
+                )}
             </div>
         </div>
     );
 }
 
 export default UploadPhoto;
-
