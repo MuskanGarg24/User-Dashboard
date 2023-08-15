@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
         },
         image: Object,
         about: String,
-        skills: String,
+        skills: [String],
         professional: String,
         certifications: [certificationSchema],
         experience: [experienceSchema],

@@ -36,13 +36,14 @@ const RegisterForm = () => {
             setError("All fields are necessary");
             return;
         }
+        const skillsArray = skills.split(',').map(skill => skill.trim());
         const res = {
             name,
             email,
             password,
             phone,
             about,
-            skills,
+            skills: skillsArray,
             professional,
             certificationName,
             certificationIssuedBy,
@@ -135,10 +136,11 @@ const RegisterForm = () => {
                         <span className="label-text text-md font-semibold">Skills</span>
                     </label>
                     <input
-                        type="password"
-                        placeholder="Enter your skills"
+                        type="text"
+                        placeholder="Enter your skills separated by commas"
                         className="input input-bordered w-full max-w-xs"
-                        onChange={(e) => { setSkills(e.target.value) }}
+                        value={skills}
+                        onChange={(e) => setSkills(e.target.value)}
                     />
                 </div>
                 <div className="form-control w-full max-w-xs mb-2 m-auto">
