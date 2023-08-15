@@ -114,7 +114,7 @@ const RegisterForm = () => {
                         <span className="label-text text-md font-semibold">Phone</span>
                     </label>
                     <input
-                        type="password"
+                        type="text"
                         placeholder="Enter your Phone"
                         className="input input-bordered w-full max-w-xs"
                         onChange={(e) => { setPhone(e.target.value) }}
@@ -125,7 +125,7 @@ const RegisterForm = () => {
                         <span className="label-text text-md font-semibold">About</span>
                     </label>
                     <input
-                        type="password"
+                        type="text"
                         placeholder="Enter your About"
                         className="input input-bordered w-full max-w-xs"
                         onChange={(e) => { setAbout(e.target.value) }}
@@ -148,7 +148,7 @@ const RegisterForm = () => {
                         <span className="label-text text-md font-semibold">Professional</span>
                     </label>
                     <input
-                        type="password"
+                        type="text"
                         placeholder="Enter your Professional"
                         className="input input-bordered w-full max-w-xs"
                         onChange={(e) => { setProfessional(e.target.value) }}
