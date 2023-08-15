@@ -5,12 +5,19 @@ import { useRouter } from 'next/navigation';
 
 const Page = () => {
 
+    // State for storing user ID
     const [userId, setUserId] = useState("");
+
+    // State for storing OTP input
     const [otp, setOTP] = useState("");
+
+    // State for storing error messages
     const [error, setError] = useState("");
 
     const router = useRouter();
 
+
+    // Fetch and set the user ID from the query parameter when component mounts
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
         const userIdParam = queryParams.get('userId');
@@ -19,6 +26,8 @@ const Page = () => {
         }
     }, []);
 
+
+    // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -26,7 +35,7 @@ const Page = () => {
             console.log(response);
             const verified = response.data.status;
             if (verified === "VERIFIED") {
-                router.push('/');
+                router.push('/'); // Redirect to the homepage if OTP is verified
             }
             else {
                 setError("Incorrect OTP entered")

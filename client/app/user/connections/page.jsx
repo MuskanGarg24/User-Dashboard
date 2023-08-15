@@ -5,21 +5,31 @@ import Connect from '@/app/components/Connect';
 import axios from 'axios';
 
 const ConnectionsPage = () => {
+
+    // State for connected users
     const [connectedUsers, setConnectedUsers] = useState([]);
+
+    // State for potential connections
     const [potentialConnections, setPotentialConnections] = useState([]);
 
+
+    // Fetch data when the component mounts
     useEffect(() => {
         fetchData();
     }, []);
 
+
+    // Fetch data from the API
     const fetchData = async () => {
         try {
             const response = await axios.get('http://localhost:5000/api/connect/get-users');
             const users = response.data;
 
+            // Separate connected users and potential connections
             const connected = users.filter(user => user.isConnected);
             const potential = users.filter(user => !user.isConnected);
 
+            // Update state with the fetched data
             setConnectedUsers(connected);
             setPotentialConnections(potential);
         } catch (error) {

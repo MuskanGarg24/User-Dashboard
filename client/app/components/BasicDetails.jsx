@@ -3,12 +3,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const BasicDetails = () => {
+
+    // List of fields to display and edit
     const fields = [
         { id: 'name', label: 'Your Name' },
         { id: 'email', label: 'Email' },
         { id: 'phone', label: 'Phone Number' }
     ];
 
+    // State variables for controlling edit states and field values
     const [editStates, setEditStates] = useState({
         name: false,
         email: false,
@@ -21,9 +24,12 @@ const BasicDetails = () => {
         phone: ''
     });
 
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
@@ -38,25 +44,34 @@ const BasicDetails = () => {
                 console.error('Error fetching user data:', error);
             });
     }, [userId]);
-    
+
+
+    // Function to enable edit mode for a specific field
     const handleEdit = (fieldId) => {
         setEditStates({ ...editStates, [fieldId]: true });
     };
 
+
+    // Function to save changes made in edit mode for a specific field
     const handleSave = async (fieldId) => {
         try {
+            // Prepare updated data for the specific field
             const updatedData = { [fieldId]: values[fieldId] };
+            // Send updated data to the server
             await axios.put(`http://localhost:5000/api/user/update/${userId}`, updatedData);
+            // Disable edit mode for the specific field
             setEditStates({ ...editStates, [fieldId]: false });
         } catch (error) {
             console.error('Error updating user data:', error);
         }
     };
 
+    // Function to cancel edit mode for a specific field
     const handleCancel = (fieldId) => {
         setEditStates({ ...editStates, [fieldId]: false });
     };
 
+    // Function to handle changes in the input during edit mode
     const handleChange = (fieldId, event) => {
         setValues({ ...values, [fieldId]: event.target.value });
     };

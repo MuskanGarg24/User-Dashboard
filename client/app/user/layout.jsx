@@ -15,10 +15,17 @@ import axios from "axios";
 
 export default function layout({ children }) {
 
+    // State for toggling sidebar visibility
     const [sidebarVisible, setSidebarVisible] = useState(false);
+
+
+    // Toggle sidebar visibility on icon click
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
+
+
+    // Close sidebar when clicking outside of it
     useEffect(() => {
         const closeSidebarOnOutsideClick = (e) => {
             if (sidebarVisible && !e.target.closest(".sidebar")) {
@@ -31,8 +38,13 @@ export default function layout({ children }) {
         };
     }, [sidebarVisible]);
 
+
+    // Get the current pathname
     const pathname = usePathname();
+
+    // Access Next.js router
     const router = useRouter();
+
 
     // handle logout
     const handleLogOut = () => {
@@ -40,15 +52,17 @@ export default function layout({ children }) {
         router.push('/');
     }
 
+
+    // state for user image
     const [userImage, setUserImage] = useState(null);
 
+
+    // User data retrieval from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
-    useEffect(() => {
-        fetchUserImage();
-    }, []);
 
+    // fetch user image function
     const fetchUserImage = async () => {
         try {
             const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
@@ -61,10 +75,17 @@ export default function layout({ children }) {
         }
     };
 
+    // get user image when the components mounts
+    useEffect(() => {
+        fetchUserImage();
+    }, []);
+
+
     return (
         <AuthChecker >
             <div>
-                {/* header  */}
+
+                {/* header starts here */}
                 <div className="z-10 bg-secondaryColor flex justify-between items-center py-2 px-4 border-2 border-borderColor sticky top-0 w-full">
                     <div className="flex">
                         <div>
@@ -95,6 +116,9 @@ export default function layout({ children }) {
                         </div>
                     </div>
                 </div>
+                {/* header ends here  */}
+
+                {/* sidebar starts here  */}
                 <div
                     className={`${sidebarVisible ? "translate-x-0" : "-translate-x-full"
                         } sidebar md:-translate-x-0 bg-secondaryColor border-2 border-borderColor z-10 fixed top-0 h-screen w-[300px] px-5 cursor-pointer transform transition-transform duration-500 ease-in-out`}

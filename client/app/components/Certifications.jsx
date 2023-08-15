@@ -5,12 +5,18 @@ import Badge from "../../public/badge.png";
 import axios from 'axios';
 
 const Certifications = () => {
+
+    // State variables for controlling edit mode and certifications
     const [editable, setEditable] = useState(false);
     const [certifications, setCertifications] = useState([]);
 
+
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
@@ -22,10 +28,14 @@ const Certifications = () => {
             });
     }, [userId]);
 
+
+    // Function to enable edit mode
     const handleEditClick = () => {
         setEditable(true);
     };
 
+
+    // Function to save changes made in edit mode
     const handleSaveClick = async () => {
         try {
             await axios.put(`http://localhost:5000/api/user/update/${userId}`, { certifications });
@@ -35,12 +45,15 @@ const Certifications = () => {
         }
     };
 
+
+    // Function to cancel edit mode
     const handleCancelClick = () => {
         setEditable(false);
     };
 
     return (
         <div className="mb-2 p-5 rounded-lg">
+            {/* Section header with Edit and Save buttons */}
             <div className="flex justify-between">
                 <div>
                     <h1 className="text-lg">Certifications</h1>
@@ -56,10 +69,12 @@ const Certifications = () => {
                     )}
                 </div>
             </div>
+            {/* Section containing badge image and certifications */}
             <div className="mt-3 border-2 border-borderColor sm:rounded-[3rem] sm:px-5 sm:py-4 sm:flex sm:space-x-20 px-3 py-2 rounded-xl">
                 <div className="sm:block flex justify-center">
                     <Image src={Badge} alt="badge" className="w-42 sm:w-full sm:ml-5 mt-1" />
                 </div>
+                {/* Map through certifications and render their content */}
                 {certifications.map(certification => (
                     <div key={certification.id} className="text-[#1F1F1FB2] text-center sm:text-left">
                         {editable ? (
@@ -94,6 +109,7 @@ const Certifications = () => {
                                 />
                             </>
                         ) : (
+                            // Display certification details in non-editable mode
                             <div>
                                 <p className="text-lg">{certification.name}</p>
                                 <p>{certification.issued_by}</p>

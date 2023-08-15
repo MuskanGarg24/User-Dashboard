@@ -5,14 +5,26 @@ import Avatar from '../../public/user.png';
 import axios from 'axios';
 
 const UploadPhoto = () => {
+
+    // Selected image for uploading
     const [selectedImage, setSelectedImage] = useState(null);
+
+    /// Uploading indicator
     const [uploading, setUploading] = useState(false);
+
+    // Reference to the file input element
     const fileInputRef = useRef(null);
+
+    // User's current profile image
     const [userImage, setUserImage] = useState(null);
 
+
+    // Fetch user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user's current profile image from the server
     useEffect(() => {
         fetchUserImage();
     }, []);
@@ -28,11 +40,15 @@ const UploadPhoto = () => {
         }
     };
 
+
+    // Handle changes to the selected image for upload
     const handleImageChange = (event) => {
         const selectedFile = event.target.files[0];
         transformFile(selectedFile);
     };
 
+
+    // Transform the selected file into a data URL
     const transformFile = (file) => {
         const reader = new FileReader();
         if (file) {
@@ -45,6 +61,8 @@ const UploadPhoto = () => {
         }
     };
 
+
+    // Upload the selected image to the server
     const uploadImage = async () => {
         try {
             setUploading(true);
@@ -61,6 +79,7 @@ const UploadPhoto = () => {
         }
     };
 
+    
     return (
         <div className="sm:flex text-center sm:justify-between mb-2 p-5 pt-2">
             <div className="flex justify-center">

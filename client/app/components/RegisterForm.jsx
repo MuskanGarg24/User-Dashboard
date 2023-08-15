@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 
 const RegisterForm = () => {
 
-    // credentials states 
+    // Define state variables for form inputs
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -26,17 +26,25 @@ const RegisterForm = () => {
     const [educationDescription, setEducationDescription] = useState("");
     const [error, setError] = useState("");
 
+
     // router
     const router = useRouter();
 
-    // handle form submit
+
+    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        // Validate required fields
         if (!name || !email || !password) {
             setError("All fields are necessary");
             return;
         }
+
+        // Split skills input into an array
         const skillsArray = skills.split(',').map(skill => skill.trim());
+
+        // Create an object with form data
         const res = {
             name,
             email,
@@ -56,12 +64,14 @@ const RegisterForm = () => {
             educationYears,
             educationDescription,
         };
+
         // password validation 
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
         if (!password.match(passwordRegex)) {
             setError("Password must contain at least one uppercase letter, one lowercase letter, one digit, one special character, and be at least 8 characters long.");
             return;
         }
+
         // if password validates, signup
         try {
             const response = await axios.post("http://localhost:5000/api/auth/register", res);
@@ -71,6 +81,7 @@ const RegisterForm = () => {
             console.log(error);
         }
     }
+
 
     return (
         <>

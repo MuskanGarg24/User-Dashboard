@@ -3,14 +3,20 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const Skills = () => {
+
+    // state variables for edit and skills
     const [editMode, setEditMode] = useState(false);
     const [skills, setSkills] = useState([]);
     const [editedSkills, setEditedSkills] = useState([]);
     const [newSkill, setNewSkill] = useState('');
 
+
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user data from the server when component mounts
     useEffect(() => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
@@ -23,17 +29,23 @@ const Skills = () => {
             });
     }, []);
 
+
+    // Handle editing of individual skills
     const handleSkillEdit = (event, index) => {
         const updatedSkills = [...editedSkills];
         updatedSkills[index] = event.target.value;
         setEditedSkills(updatedSkills);
     };
 
+
+    // Enable edit mode and populate editedSkills with existing skills
     const handleEdit = () => {
         setEditMode(true);
         setEditedSkills([...skills]);
     };
 
+
+    // Save edited skills to the server
     const handleSave = async () => {
         setEditMode(false);
         try {
@@ -46,10 +58,14 @@ const Skills = () => {
         }
     };
 
+
+    // Cancel editing mode
     const handleCancel = () => {
         setEditMode(false);
     };
 
+
+    // Add a new skill to the editedSkills state
     const handleAddSkill = () => {
         if (newSkill.trim() !== '') {
             setEditedSkills([...editedSkills, newSkill.trim()]);

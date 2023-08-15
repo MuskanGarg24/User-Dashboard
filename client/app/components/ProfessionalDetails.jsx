@@ -6,12 +6,17 @@ import axios from 'axios';
 
 const ProfessionalDetails = () => {
 
+    // State to manage edit mode and professional text
     const [editMode, setEditMode] = useState(false);
     const [professionalText, setProfessionalText] = useState('');
 
+
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user's professional details from the server
     useEffect(() => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
@@ -23,10 +28,14 @@ const ProfessionalDetails = () => {
             });
     }, [userId]);
 
+
+    // Function to enable editing mode
     const handleEdit = () => {
         setEditMode(true);
     };
 
+
+    // Function to save edited professional details
     const handleSave = async () => {
         try {
             await axios.put(`http://localhost:5000/api/user/update/${userId}`, { professional: professionalText });
@@ -36,13 +45,18 @@ const ProfessionalDetails = () => {
         }
     };
 
+
+    // Function to cancel editing mode
     const handleCancel = () => {
         setEditMode(false);
     };
 
+
+    // Function to handle text input changes
     const handleChange = (event) => {
         setProfessionalText(event.target.value);
     };
+
 
     return (
         <div className="mb-5 mt-5 border-2 border-borderColor p-5 rounded-lg">

@@ -4,10 +4,14 @@ import Image from 'next/image';
 import axios from 'axios';
 
 const Connect = ({ user }) => {
+
+    // State variable to track the connection status
     const [isConnected, setIsConnected] = useState(user.isConnected);
 
+    // Function to toggle the connection status
     const toggleConnection = async () => {
         try {
+            // Send a request to update the connection status
             const response = await axios.post(`http://localhost:5000/api/connect/update-connection/${user._id}`, {
                 isConnected: !isConnected
             });

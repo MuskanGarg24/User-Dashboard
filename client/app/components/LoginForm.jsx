@@ -6,23 +6,28 @@ import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
 
-    // credentials states
+    // // State variables to manage user input and error messages
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
 
-    // router
+
+    // Access the router instance
     const router = useRouter();
 
-    // handle form submit
+
+    // Function to handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
+        // Check if email or password is missing
         if (!email || !password) {
             setError("All fields are necessary");
             return;
         }
+        // Make a POST request to the login API endpoint
         try {
             const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+            // Store user data in session storage and navigate to the user's profile page
             sessionStorage.setItem('userData', JSON.stringify(response.data));
             router.push("/user/profile");
         }
@@ -31,6 +36,7 @@ const LoginForm = () => {
             console.log(error);
         }
     }
+
 
     return (
         <div className="bg-secondaryColor w-[90vw] mt-16 m-auto p-9 rounded-2xl sm:w-[50vw] xl:w-[30vw]">

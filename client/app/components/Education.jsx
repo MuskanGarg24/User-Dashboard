@@ -3,6 +3,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 
 const Education = () => {
+
+    // State variables for controlling edit mode and edited content
     const [isEditing, setIsEditing] = useState(false);
     const [editedContent, setEditedContent] = useState({
         institute_name: '',
@@ -12,13 +14,19 @@ const Education = () => {
         description: '',
     });
 
+
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch education details when the component mounts
     useEffect(() => {
         fetchEducationDetails();
     }, []);
 
+
+    // Function to fetch education details from the server
     const fetchEducationDetails = () => {
         axios
             .get(`http://localhost:5000/api/user/${userId}`)
@@ -32,15 +40,21 @@ const Education = () => {
             });
     };
 
+
+    // Function to enable edit mode
     const handleEdit = () => {
         setIsEditing(true);
     };
 
+
+    // Function to cancel edit mode and reset edited content
     const handleCancel = () => {
         setIsEditing(false);
         fetchEducationDetails();
     };
 
+
+    // Function to save edited content
     const handleSave = () => {
         setIsEditing(false);
         axios.put(`http://localhost:5000/api/user/update/${userId}`, {
@@ -54,6 +68,8 @@ const Education = () => {
             });
     };
 
+
+    // Function to handle changes in input fields and textarea
     const handleChange = (e) => {
         const { name, value } = e.target;
         setEditedContent(prevDetails => ({

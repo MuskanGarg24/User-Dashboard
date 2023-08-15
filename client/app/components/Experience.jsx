@@ -5,12 +5,18 @@ import Logo from "../../public/oru_logo.png";
 import axios from 'axios';
 
 const Experience = () => {
+
+    // State variables for storing experiences and tracking edited experience index
     const [experiences, setExperiences] = useState([]);
     const [editedExperienceIndex, setEditedExperienceIndex] = useState("");
 
+
+    // Retrieve user data from session storage
     const userData = JSON.parse(sessionStorage.getItem('userData'));
     const userId = userData?._id;
 
+
+    // Fetch user experiences when the component mounts
     useEffect(() => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
@@ -22,6 +28,8 @@ const Experience = () => {
             });
     }, [userId]);
 
+
+    // Function to handle click on Edit button
     const handleEditClick = (index) => {
         if (index === editedExperienceIndex) {
             setEditedExperienceIndex(-1);
@@ -30,6 +38,8 @@ const Experience = () => {
         }
     }
 
+
+    // Function to handle click on Save button
     const handleSaveClick = async (index) => {
         try {
             await axios.put(`http://localhost:5000/api/user/update/${userId}`, { experience: experiences });
@@ -39,10 +49,14 @@ const Experience = () => {
         }
     };
 
+
+    // Function to handle click on Cancel button
     const handleCancelClick = () => {
         setEditedExperienceIndex(-1);
     }
 
+
+    // Function to handle input changes
     const handleInputChange = (event, property, index) => {
         const updatedExperiences = [...experiences];
         updatedExperiences[index][property] = event.target.value;
