@@ -37,8 +37,8 @@ const BasicDetails = () => {
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, [userId]); // Added userId to the dependency array
-
+    }, [userId]);
+    
     const handleEdit = (fieldId) => {
         setEditStates({ ...editStates, [fieldId]: true });
     };

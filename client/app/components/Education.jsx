@@ -38,17 +38,14 @@ const Education = () => {
 
     const handleCancel = () => {
         setIsEditing(false);
-        fetchEducationDetails(); // Reset to original data on cancel
+        fetchEducationDetails();
     };
 
     const handleSave = () => {
         setIsEditing(false);
-
-        // Send updated educationDetails to the server
-        axios
-            .put(`http://localhost:5000/api/user/update/${userId}`, {
-                education: [editedContent],
-            })
+        axios.put(`http://localhost:5000/api/user/update/${userId}`, {
+            education: [editedContent],
+        })
             .then(response => {
                 console.log('User data updated:', response.data);
             })

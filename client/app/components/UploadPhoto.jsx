@@ -54,8 +54,6 @@ const UploadPhoto = () => {
             console.log('Image uploaded successfully:', response.data);
             setUploading(false);
             setSelectedImage(null);
-
-            // Update user image after successful upload
             fetchUserImage();
         } catch (error) {
             console.log('Error uploading image:', error);

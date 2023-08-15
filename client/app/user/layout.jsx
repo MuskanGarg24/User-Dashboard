@@ -117,7 +117,6 @@ export default function layout({ children }) {
                                     <BiChevronRight size={25} className="mt-3" />
                                     <p className={`ml-5 text-lg px-7 py-3 ${pathname == '/user/connections' ? 'border-2 border-primaryColor rounded-lg' : ''}`}>My Connections</p>
                                 </div>
-                                {/* ml-5 text-lg px-7 py-3 rounded-lg */}
                             </Link>
                         </div>
                     </div>

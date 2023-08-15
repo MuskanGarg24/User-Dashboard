@@ -20,7 +20,7 @@ const Certifications = () => {
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, [userId]); // Include userId in the dependency array
+    }, [userId]);
 
     const handleEditClick = () => {
         setEditable(true);

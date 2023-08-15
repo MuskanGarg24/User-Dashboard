@@ -5,12 +5,6 @@ import Logo from "../../public/oru_logo.png";
 import axios from 'axios';
 
 const Experience = () => {
-    const initialExperience = {
-        years: "7",
-        company: "i",
-        role: "i"
-    };
-
     const [experiences, setExperiences] = useState([]);
     const [editedExperienceIndex, setEditedExperienceIndex] = useState("");
 
@@ -26,7 +20,7 @@ const Experience = () => {
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, [userId]); // Include userId in the dependency array
+    }, [userId]);
 
     const handleEditClick = (index) => {
         if (index === editedExperienceIndex) {
