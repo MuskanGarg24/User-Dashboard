@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Badge from "../../public/badge.png";
@@ -12,23 +12,27 @@ const Certifications = () => {
     const userId = userData?._id;
 
     useEffect(() => {
-        // Fetch user's certifications information here using axios or fetch
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
-                const userData = response.data.user; // Update this based on your API response structure
-                setCertifications(userData.certifications || []); // Populate certifications state with fetched data
+                const userData = response.data.user;
+                setCertifications(userData.certifications || []);
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, []); // Empty dependency array to run the effect only once
+    }, [userId]); // Include userId in the dependency array
 
     const handleEditClick = () => {
         setEditable(true);
     };
 
-    const handleSaveClick = () => {
-        setEditable(false);
+    const handleSaveClick = async () => {
+        try {
+            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { certifications });
+            setEditable(false);
+        } catch (error) {
+            console.error('Error updating certifications:', error);
+        }
     };
 
     const handleCancelClick = () => {
@@ -81,7 +85,7 @@ const Certifications = () => {
                                     onChange={(e) => {
                                         const updatedCertifications = certifications.map(cert => {
                                             if (cert.id === certification.id) {
-                                                return { ...cert, institution: e.target.value };
+                                                return { ...cert, issued_by: e.target.value };
                                             }
                                             return cert;
                                         });
@@ -99,7 +103,7 @@ const Certifications = () => {
                 ))}
             </div>
         </div>
-    )
+    );
 }
 
 export default Certifications;

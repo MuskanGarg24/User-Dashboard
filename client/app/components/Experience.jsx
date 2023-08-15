@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Logo from "../../public/oru_logo.png";
@@ -18,16 +18,15 @@ const Experience = () => {
     const userId = userData?._id;
 
     useEffect(() => {
-        // Fetch user's experience details information here using axios or fetch
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
-                const userData = response.data.user; // Update this based on your API response structure
-                setExperiences(userData.experience || []); // Populate experiences state with fetched data
+                const userData = response.data.user;
+                setExperiences(userData.experience || []);
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, []);
+    }, [userId]); // Include userId in the dependency array
 
     const handleEditClick = (index) => {
         if (index === editedExperienceIndex) {
@@ -36,6 +35,16 @@ const Experience = () => {
             setEditedExperienceIndex(index);
         }
     }
+
+    const handleSaveClick = async (index) => {
+        try {
+            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { experience: experiences });
+            setEditedExperienceIndex(-1);
+        } catch (error) {
+            console.error('Error updating experiences:', error);
+        }
+    };
+
     const handleCancelClick = () => {
         setEditedExperienceIndex(-1);
     }
@@ -57,7 +66,7 @@ const Experience = () => {
                         <div>
                             {editedExperienceIndex === index ? (
                                 <>
-                                    <button className="smoky-btn" onClick={() => handleEditClick(index)}>Save</button>
+                                    <button className="smoky-btn" onClick={() => handleSaveClick(index)}>Save</button>
                                     <button className="smoky-btn" onClick={handleCancelClick}>Cancel</button>
                                 </>
                             ) : (
@@ -71,12 +80,12 @@ const Experience = () => {
                                 {editedExperienceIndex === index ? (
                                     <input
                                         type="text"
-                                        value={ experience.start + "-" + experience.end}
+                                        value={experience.years}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
                                         onChange={(e) => handleInputChange(e, 'years', index)}
                                     />
                                 ) : (
-                                    experience.start + "-" + experience.end
+                                    experience.years
                                 )}
                             </p>
                             <p className="text-[#1F1F1FB2]">
@@ -111,7 +120,7 @@ const Experience = () => {
                                         type="text"
                                         value={experience.job_type}
                                         className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-[150px]"
-                                        onChange={(e) => handleInputChange(e, 'role', index)}
+                                        onChange={(e) => handleInputChange(e, 'job_type', index)}
                                     />
                                 ) : (
                                     experience.job_type
@@ -129,4 +138,5 @@ const Experience = () => {
 }
 
 export default Experience;
+
 

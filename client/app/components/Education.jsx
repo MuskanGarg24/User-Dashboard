@@ -16,18 +16,21 @@ const Education = () => {
     const userId = userData?._id;
 
     useEffect(() => {
-        // Fetch user's education details information here using axios or fetch
+        fetchEducationDetails();
+    }, []);
+
+    const fetchEducationDetails = () => {
         axios
             .get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
-                const userData = response.data.user; // Update this based on your API response structure
+                const userData = response.data.user;
                 const educationDetails = userData.education[0] || {};
-                setEditedContent(educationDetails); // Populate editedContent state with fetched data
+                setEditedContent(educationDetails);
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, []);
+    };
 
     const handleEdit = () => {
         setIsEditing(true);
@@ -35,17 +38,30 @@ const Education = () => {
 
     const handleCancel = () => {
         setIsEditing(false);
+        fetchEducationDetails(); // Reset to original data on cancel
     };
 
     const handleSave = () => {
         setIsEditing(false);
+
+        // Send updated educationDetails to the server
+        axios
+            .put(`http://localhost:5000/api/user/update/${userId}`, {
+                education: [editedContent],
+            })
+            .then(response => {
+                console.log('User data updated:', response.data);
+            })
+            .catch(error => {
+                console.error('Error updating user data:', error);
+            });
     };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setEditedContent(prevContent => ({
-            ...prevContent,
-            [name]: value
+        setEditedContent(prevDetails => ({
+            ...prevDetails,
+            [name]: value,
         }));
     };
 
@@ -71,7 +87,7 @@ const Education = () => {
                     {isEditing ? (
                         <input
                             type="text"
-                            name="institution"
+                            name="institute_name"
                             value={editedContent.institute_name}
                             onChange={handleChange}
                             className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-32"
@@ -85,20 +101,20 @@ const Education = () => {
                         {isEditing ? (
                             <input
                                 type="text"
-                                name="date"
-                                value={editedContent.start + "-" + editedContent.end}
+                                name="years"
+                                value={editedContent.years}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-24"
                             />
                         ) : (
-                            <p>{editedContent.start + "-" + editedContent.end}</p>
+                            <p>{editedContent.years}</p>
                         )}
                     </div>
                     <div>
                         {isEditing ? (
                             <input
                                 type="text"
-                                name="degree"
+                                name="degree_name"
                                 value={editedContent.degree_name}
                                 onChange={handleChange}
                                 className="p-1 rounded-md border-2 border-borderColor focus:outline-borderColor w-16"

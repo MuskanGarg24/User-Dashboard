@@ -28,7 +28,6 @@ const BasicDetails = () => {
         axios.get(`http://localhost:5000/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
-                console.log(userData);
                 setValues({
                     name: userData.name,
                     email: userData.email,
@@ -38,14 +37,20 @@ const BasicDetails = () => {
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, []);
+    }, [userId]); // Added userId to the dependency array
 
     const handleEdit = (fieldId) => {
         setEditStates({ ...editStates, [fieldId]: true });
     };
 
-    const handleSave = (fieldId) => {
-        setEditStates({ ...editStates, [fieldId]: false });
+    const handleSave = async (fieldId) => {
+        try {
+            const updatedData = { [fieldId]: values[fieldId] };
+            await axios.put(`http://localhost:5000/api/user/update/${userId}`, updatedData);
+            setEditStates({ ...editStates, [fieldId]: false });
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
     };
 
     const handleCancel = (fieldId) => {

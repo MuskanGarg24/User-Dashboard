@@ -9,15 +9,13 @@ const experienceSchema = new mongoose.Schema({
     role: String,
     job_type: String,
     company: String,
-    start: String,
-    end: String,
+    years: String
 });
 
 const educationSchema = new mongoose.Schema({
     institute_name: String,
     degree_name: String,
-    start: String,
-    end: String,
+    years: String,
     description: String,
 });
 

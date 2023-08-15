@@ -45,4 +45,34 @@ router.get("/:id", async (req, res) => {
     }
 });
 
+
+// update user info
+router.put("/update/:id", async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const updatedData = req.body;
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        console.log(user);
+        // Update user properties based on the updatedData
+        if (updatedData.name) user.name = updatedData.name;
+        if (updatedData.phone) user.phone = updatedData.phone;
+        if (updatedData.email) user.email = updatedData.email;
+        if (updatedData.password) user.password = updatedData.password;
+        if (updatedData.about) user.about = updatedData.about;
+        if (updatedData.skills) user.skills = updatedData.skills;
+        if (updatedData.professional) user.professional = updatedData.professional;
+        if (updatedData.certifications) user.certifications = updatedData.certifications;
+        if (updatedData.experience) user.experience = updatedData.experience;
+        if (updatedData.education) user.education = updatedData.education;
+        await user.save();
+        res.status(200).json({ message: "User updated successfully", user });
+    } catch (error) {
+        res.status(500).json({ message: "An error occurred", error: error.message });
+    }
+});
+
+
 module.exports = router;

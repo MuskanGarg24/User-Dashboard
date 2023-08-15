@@ -8,33 +8,6 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-//Register
-// router.post("/register", async (req, res) => {
-//     try {
-//         const hash = await bcrypt.hash(req.body.password, saltRounds);
-//         const newUser = new User({
-//             username: req.body.username,
-//             email: req.body.email,
-//             password: hash,
-//             verified: false,
-//         });
-//         const user = await newUser
-//             .save()
-//             .then((result) => {
-//                 sendOTPVerificationEmail(result, res);
-//             })
-//             .catch((err) => {
-//                 console.log(err);
-//                 res.json({
-//                     status: "FAILED",
-//                     message: "An Error Occurred while saving your account",
-//                 });
-//             });
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
-
 // Register
 router.post("/register", async (req, res) => {
     try {
@@ -49,15 +22,13 @@ router.post("/register", async (req, res) => {
             role: req.body.experienceRole,
             job_type: req.body.experienceJobType,
             company: req.body.experienceCompany,
-            start: req.body.experienceStart,
-            end: req.body.experienceEnd,
+            years: req.body.experienceYears
         };
 
         const newEducation = {
             institute_name: req.body.educationInstituteName,
             degree_name: req.body.educationDegreeName,
-            start: req.body.educationStart,
-            end: req.body.educationEnd,
+            years: req.body.educationYears,
             description: req.body.educationDescription,
         };
 

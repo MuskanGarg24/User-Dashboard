@@ -18,14 +18,19 @@ const About = () => {
             .catch(error => {
                 console.error('Error fetching user data:', error);
             });
-    }, []);
+    }, [userId]); // Added userId to the dependency array
 
     const handleEdit = () => {
         setEditMode(true);
     };
 
-    const handleSave = () => {
-        setEditMode(false);
+    const handleSave = async () => {
+        try {
+            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { about: aboutText });
+            setEditMode(false);
+        } catch (error) {
+            console.error('Error updating user data:', error);
+        }
     };
 
     const handleCancel = () => {

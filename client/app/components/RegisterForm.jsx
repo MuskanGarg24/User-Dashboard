@@ -19,12 +19,10 @@ const RegisterForm = () => {
     const [experienceRole, setExperienceRole] = useState("");
     const [experienceJobType, setExperienceJobType] = useState("");
     const [experienceCompany, setExperienceCompany] = useState("");
-    const [experienceStart, setExperienceStart] = useState("");
-    const [experienceEnd, setExperienceEnd] = useState("");
+    const [experienceYears, setExperienceYears] = useState("");
     const [educationInstituteName, setEducationInstituteName] = useState("");
     const [educationDegreeName, setEducationDegreeName] = useState("");
-    const [educationStart, setEducationStart] = useState("");
-    const [educationEnd, setEducationEnd] = useState("");
+    const [educationYears, setEducationYears] = useState("");
     const [educationDescription, setEducationDescription] = useState("");
     const [error, setError] = useState("");
 
@@ -51,12 +49,10 @@ const RegisterForm = () => {
             experienceRole,
             experienceJobType,
             experienceCompany,
-            experienceStart,
-            experienceEnd,
+            experienceYears,
             educationInstituteName,
             educationDegreeName,
-            educationStart,
-            educationEnd,
+            educationYears,
             educationDescription,
         };
         // password validation 
@@ -215,24 +211,13 @@ const RegisterForm = () => {
                 </div>
                 <div className="form-control w-full max-w-xs mb-2 m-auto">
                     <label className="label">
-                        <span className="label-text text-md font-semibold">Start</span>
+                        <span className="label-text text-md font-semibold">Experience Years</span>
                     </label>
                     <input
                         type="text"
-                        placeholder="Enter Start Date"
+                        placeholder="Enter Experience Years"
                         className="input input-bordered w-full max-w-xs"
-                        onChange={(e) => setExperienceStart(e.target.value)}
-                    />
-                </div>
-                <div className="form-control w-full max-w-xs mb-2 m-auto">
-                    <label className="label">
-                        <span className="label-text text-md font-semibold">End</span>
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="Enter End Date"
-                        className="input input-bordered w-full max-w-xs"
-                        onChange={(e) => setExperienceEnd(e.target.value)}
+                        onChange={(e) => setExperienceYears(e.target.value)}
                     />
                 </div>
                 <div className="form-control w-full max-w-xs mb-2 m-auto">
@@ -259,24 +244,13 @@ const RegisterForm = () => {
                 </div>
                 <div className="form-control w-full max-w-xs mb-2 m-auto">
                     <label className="label">
-                        <span className="label-text text-md font-semibold">Start</span>
+                        <span className="label-text text-md font-semibold">Education Years</span>
                     </label>
                     <input
                         type="text"
-                        placeholder="Enter Education Start"
+                        placeholder="Enter Education Years"
                         className="input input-bordered w-full max-w-xs"
-                        onChange={(e) => setEducationStart(e.target.value)}
-                    />
-                </div>
-                <div className="form-control w-full max-w-xs mb-2 m-auto">
-                    <label className="label">
-                        <span className="label-text text-md font-semibold">End</span>
-                    </label>
-                    <input
-                        type="text"
-                        placeholder="Enter Education End"
-                        className="input input-bordered w-full max-w-xs"
-                        onChange={(e) => setEducationEnd(e.target.value)}
+                        onChange={(e) => setEducationYears(e.target.value)}
                     />
                 </div>
                 <div className="form-control w-full max-w-xs mb-2 m-auto">
