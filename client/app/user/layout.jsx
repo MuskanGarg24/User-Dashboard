@@ -11,15 +11,14 @@ import { FiChevronDown } from "react-icons/fi";
 import AuthChecker from "../components/AuthChecker";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
+import axios from "axios";
 
 export default function layout({ children }) {
 
     const [sidebarVisible, setSidebarVisible] = useState(false);
-    // Function to toggle sidebar visibility
     const toggleSidebar = () => {
         setSidebarVisible(!sidebarVisible);
     };
-    // Add an event listener to close the sidebar when clicking outside
     useEffect(() => {
         const closeSidebarOnOutsideClick = (e) => {
             if (sidebarVisible && !e.target.closest(".sidebar")) {
@@ -41,6 +40,27 @@ export default function layout({ children }) {
         router.push('/');
     }
 
+    const [userImage, setUserImage] = useState(null);
+
+    const userData = JSON.parse(sessionStorage.getItem('userData'));
+    const userId = userData?._id;
+
+    useEffect(() => {
+        fetchUserImage();
+    }, []);
+
+    const fetchUserImage = async () => {
+        try {
+            const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+            const userData = response.data.user;
+            const userImageUrl = userData.image.url;
+            console.log(userImageUrl);
+            setUserImage(userImageUrl);
+        } catch (error) {
+            console.error('Error fetching user image:', error);
+        }
+    };
+
     return (
         <AuthChecker >
             <div>
@@ -60,7 +80,7 @@ export default function layout({ children }) {
                         </div>
                         <div className="hidden md:flex md:justify-center border-2 border-borderColor rounded-md py-1 w-full">
                             <div>
-                                <Image alt="user" src={avatar} className="w-12 mr-2" />
+                                <img alt="user" src={userImage || avatar} className="w-12 mr-2 h-12 rounded-full object-cover" />
                             </div>
                             <div className="block text-primaryColor mr-7">
                                 <p className="text-xs mt-1">Welcome Back,</p>
@@ -71,7 +91,7 @@ export default function layout({ children }) {
                             </div>
                         </div>
                         <div className="md:hidden">
-                            <Image alt="user" src={avatar} className="w-12" />
+                            <img alt="user" src={userImage || avatar} className="w-12 h-12 rounded-full object-cover" />
                         </div>
                     </div>
                 </div>
