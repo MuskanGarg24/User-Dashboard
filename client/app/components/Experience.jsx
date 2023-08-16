@@ -13,7 +13,7 @@ const Experience = () => {
 
     // Fetch user experiences when the component mounts
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setExperiences(userData.experience || []);
@@ -37,7 +37,7 @@ const Experience = () => {
     // Function to handle click on Save button
     const handleSaveClick = async (index) => {
         try {
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { experience: experiences });
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, { experience: experiences });
             setEditedExperienceIndex(-1);
         } catch (error) {
             console.error('Error updating experiences:', error);

@@ -16,7 +16,6 @@ const Page = () => {
 
     const router = useRouter();
 
-
     // Fetch and set the user ID from the query parameter when component mounts
     useEffect(() => {
         const queryParams = new URLSearchParams(window.location.search);
@@ -31,8 +30,7 @@ const Page = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/verifyOTP/", { userId, otp });
-            console.log(response);
+            const response = await axios.post("https://oruphones-ejg9.onrender.com/api/auth/verifyOTP/", { userId, otp });
             const verified = response.data.status;
             if (verified === "VERIFIED") {
                 router.push('/'); // Redirect to the homepage if OTP is verified

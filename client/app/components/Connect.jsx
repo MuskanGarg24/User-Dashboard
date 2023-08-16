@@ -12,7 +12,7 @@ const Connect = ({ user }) => {
     const toggleConnection = async () => {
         try {
             // Send a request to update the connection status
-            const response = await axios.post(`http://localhost:5000/api/connect/update-connection/${user._id}`, {
+            const response = await axios.post(`https://oruphones-ejg9.onrender.com/api/connect/update-connection/${user._id}`, {
                 isConnected: !isConnected
             });
             setIsConnected(response.data.isConnected);

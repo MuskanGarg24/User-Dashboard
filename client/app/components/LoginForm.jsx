@@ -26,7 +26,7 @@ const LoginForm = () => {
         }
         // Make a POST request to the login API endpoint
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
+            const response = await axios.post("https://oruphones-ejg9.onrender.com/api/auth/login", { email, password });
             // Store user data in session storage and navigate to the user's profile page
             sessionStorage.setItem('userData', JSON.stringify(response.data._id));
             router.push("/user/profile");

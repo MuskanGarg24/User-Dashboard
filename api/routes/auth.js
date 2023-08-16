@@ -175,14 +175,11 @@ router.post("/login", async (req, res) => {
         if (foundUser) {
             const result = await bcrypt.compare(password, foundUser.password);
             if (result) {
-                console.log("User logged in successfully!");
                 res.json(foundUser);
             } else {
-                console.log("Invalid password");
                 res.status(401).json({ message: "Invalid credentials" });
             }
         } else {
-            console.log("User not found");
             res.status(404).json({ message: "User not found" });
         }
     } catch (err) {

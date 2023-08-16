@@ -27,7 +27,7 @@ const BasicDetails = () => {
 
     // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setValues({
@@ -54,7 +54,7 @@ const BasicDetails = () => {
             // Prepare updated data for the specific field
             const updatedData = { [fieldId]: values[fieldId] };
             // Send updated data to the server
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, updatedData);
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, updatedData);
             // Disable edit mode for the specific field
             setEditStates({ ...editStates, [fieldId]: false });
         } catch (error) {

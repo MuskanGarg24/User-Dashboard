@@ -13,7 +13,7 @@ const ProfessionalDetails = () => {
 
     // Fetch user's professional details from the server
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setProfessionalText(userData.professional || '');
@@ -33,7 +33,7 @@ const ProfessionalDetails = () => {
     // Function to save edited professional details
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { professional: professionalText });
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, { professional: professionalText });
             setEditMode(false);
         } catch (error) {
             console.error('Error updating user data:', error);

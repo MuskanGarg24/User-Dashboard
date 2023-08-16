@@ -24,7 +24,7 @@ const Education = () => {
     // Function to fetch education details from the server
     const fetchEducationDetails = () => {
         axios
-            .get(`http://localhost:5000/api/user/${userId}`)
+            .get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 const educationDetails = userData.education[0] || {};
@@ -52,7 +52,7 @@ const Education = () => {
     // Function to save edited content
     const handleSave = () => {
         setIsEditing(false);
-        axios.put(`http://localhost:5000/api/user/update/${userId}`, {
+        axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, {
             education: [editedContent],
         })
             .then(response => {

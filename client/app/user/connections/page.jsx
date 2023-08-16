@@ -22,7 +22,7 @@ const ConnectionsPage = () => {
     // Fetch data from the API
     const fetchData = async () => {
         try {
-            const response = await axios.get('http://localhost:5000/api/connect/get-users');
+            const response = await axios.get('https://oruphones-ejg9.onrender.com/api/connect/get-users');
             const users = response.data;
 
             // Separate connected users and potential connections

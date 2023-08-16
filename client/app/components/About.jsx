@@ -11,7 +11,7 @@ const About = () => {
 
     // Effect hook that fetches user data from the server when the component mounts or userId changes
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setAboutText(userData.about || '');
@@ -29,7 +29,7 @@ const About = () => {
     // Function to save changes made in edit mode
     const handleSave = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { about: aboutText });
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, { about: aboutText });
             setEditMode(false);
         } catch (error) {
             console.error('Error updating user data:', error);

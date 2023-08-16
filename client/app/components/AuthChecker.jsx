@@ -15,9 +15,7 @@ const AuthChecker = ({ children }) => {
             router.push('/') // Redirect to the default page if user data doesn't exist
         }
     }, [router]);
-     // Return the child components
     return children;
 };
 
-// Export the AuthChecker component for use in other parts of the application
 export default AuthChecker;

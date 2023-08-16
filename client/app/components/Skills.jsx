@@ -14,7 +14,7 @@ const Skills = () => {
 
     // Fetch user data from the server when component mounts
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setSkills(userData.skills || []);
@@ -45,7 +45,7 @@ const Skills = () => {
     const handleSave = async () => {
         setEditMode(false);
         try {
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, {
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, {
                 skills: editedSkills,
             });
             setSkills([...editedSkills]);

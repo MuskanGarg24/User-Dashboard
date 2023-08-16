@@ -54,7 +54,6 @@ router.put("/update/:id", async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
-        console.log(user);
         // Update user properties based on the updatedData
         if (updatedData.name) user.name = updatedData.name;
         if (updatedData.phone) user.phone = updatedData.phone;

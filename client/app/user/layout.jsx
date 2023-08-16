@@ -62,10 +62,9 @@ export default function layout({ children }) {
     // fetch user image function
     const fetchUserImage = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+            const response = await axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`);
             const userData = response.data.user;
             const userImageUrl = userData.image.url;
-            console.log(userImageUrl);
             setUserImage(userImageUrl);
         } catch (error) {
             console.error('Error fetching user image:', error);

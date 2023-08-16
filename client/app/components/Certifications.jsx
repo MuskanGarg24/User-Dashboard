@@ -13,7 +13,7 @@ const Certifications = () => {
 
     // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {
-        axios.get(`http://localhost:5000/api/user/${userId}`)
+        axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`)
             .then(response => {
                 const userData = response.data.user;
                 setCertifications(userData.certifications || []);
@@ -31,7 +31,7 @@ const Certifications = () => {
     // Function to save changes made in edit mode
     const handleSaveClick = async () => {
         try {
-            await axios.put(`http://localhost:5000/api/user/update/${userId}`, { certifications });
+            await axios.put(`https://oruphones-ejg9.onrender.com/api/user/update/${userId}`, { certifications });
             setEditable(false);
         } catch (error) {
             console.error('Error updating certifications:', error);

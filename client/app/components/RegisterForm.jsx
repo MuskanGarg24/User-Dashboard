@@ -74,7 +74,7 @@ const RegisterForm = () => {
 
         // if password validates, signup
         try {
-            const response = await axios.post("http://localhost:5000/api/auth/register", res);
+            const response = await axios.post("https://oruphones-ejg9.onrender.com/api/auth/register", res);
             const userId = response.data.data.userId;
             router.push(`/verify?userId=${userId}`);
         } catch (error) {

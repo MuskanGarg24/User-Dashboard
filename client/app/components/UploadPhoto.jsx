@@ -26,7 +26,7 @@ const UploadPhoto = () => {
 
     const fetchUserImage = async () => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+            const response = await axios.get(`https://oruphones-ejg9.onrender.com/api/user/${userId}`);
             const userData = response.data.user;
             const userImageUrl = userData.image.url;
             setUserImage(userImageUrl);
@@ -61,10 +61,9 @@ const UploadPhoto = () => {
     const uploadImage = async () => {
         try {
             setUploading(true);
-            const response = await axios.post(`http://localhost:5000/api/user/uploads/${userId}`, {
+            const response = await axios.post(`https://oruphones-ejg9.onrender.com/api/user/uploads/${userId}`, {
                 image: selectedImage,
             });
-            console.log('Image uploaded successfully:', response.data);
             setUploading(false);
             setSelectedImage(null);
             fetchUserImage();
