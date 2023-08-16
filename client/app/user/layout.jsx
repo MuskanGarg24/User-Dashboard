@@ -57,6 +57,8 @@ export default function layout({ children }) {
 
     // state for user image
     const [userImage, setUserImage] = useState(null);
+    // state for user name
+    const [name, setName] = useState("");
 
 
     // fetch user image function
@@ -66,6 +68,7 @@ export default function layout({ children }) {
             const userData = response.data.user;
             const userImageUrl = userData.image.url;
             setUserImage(userImageUrl);
+            setName(userData.name);
         } catch (error) {
             console.error('Error fetching user image:', error);
         }
@@ -101,7 +104,7 @@ export default function layout({ children }) {
                             </div>
                             <div className="block text-primaryColor mr-7">
                                 <p className="text-xs mt-1">Welcome Back,</p>
-                                <p className="text-md font-semibold">Muskan Garg</p>
+                                <p className="text-md font-semibold">{name}</p>
                             </div>
                             <div>
                                 <FiChevronDown className="text-primaryColor mt-3" size={25} />

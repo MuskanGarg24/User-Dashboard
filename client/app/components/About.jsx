@@ -8,6 +8,7 @@ const About = () => {
     // State variables for controlling edit mode and about text
     const [editMode, setEditMode] = useState(false);
     const [aboutText, setAboutText] = useState('');
+    const [name, setName] = useState('');
 
     // Effect hook that fetches user data from the server when the component mounts or userId changes
     useEffect(() => {
@@ -15,6 +16,7 @@ const About = () => {
             .then(response => {
                 const userData = response.data.user;
                 setAboutText(userData.about || '');
+                setName(userData.name);
             })
             .catch(error => {
                 console.error('Error fetching user data:', error);
@@ -51,7 +53,7 @@ const About = () => {
             <div className="flex justify-between">
                 <div>
                     <h1 className="text-lg">
-                        About <span className="text-primaryColor">Muskan</span>
+                        About <span className="text-primaryColor">{name}</span>
                     </h1>
                 </div>
                 <div>
