@@ -2,19 +2,19 @@
 This project aims to create a dynamic user profile page with two main sections: Profile and Connections. The frontend is built using Next.js and styled with Tailwind CSS, while the backend is developed using Node.js and MongoDB.
 
 ## Table of Contents
-- [Objective](#Objective)
-- [Technologies Used](#Technologies-Used)
-- [Features](#Features)
-- [Frontend Development](#Frontend-Development)
+- [Objective](#objective)
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Frontend Development](#frontend-development)
   - Login and Signup Process
   - Profile Page
   - Connections Page
-- [Backend Development](#Backend-Development)
-- [Deployment](#Deployment)
-- [Usage](#Usage)
-- [Setup Instructions](#Setup-Instructions)
-- [Deployment Instructions](#Deployment-Instructions)
-- [Contributors](#Contributors)
+- [Backend Development](#backend-development)
+- [Deployment](#deployment)
+- [Usage](#usage)
+- [Setup Instructions](#setup-instructions)
+- [Deployment Instructions](#deployment-instructions)
+- [Contributors](#contributors)
 
 ## Objective
 The goal of this assignment is to create a web application that allows users to create and manage their dynamic user profiles. Users can log in, update their profile information, manage their connections, and view their friends.
@@ -56,7 +56,7 @@ MongoDB is used for data storage and retrieval. User profiles, connections, and 
 The project is deployed using the following platforms:
 - Frontend: [Vercel](https://vercel.com/)
 - Backend: [Render](https://render.com/)
-#### Project Deployed Link: [Oruphones Assignment](https://www.youtube.com/watch?v=WNU1BEZIjxg) 
+#### Project Deployed Link: [Live Site](https://oruphones-assignment-chi.vercel.app/) 
 
 ## Usage
 Use the provided login and signup forms to create an account or log in.
@@ -96,7 +96,20 @@ nodemon app.js
 
 ## Deployment Instructions
 
+### Vercel Deployment
+- Create an account on vercel
+- Import your GitHub repository
+- Choose your branch (usually main) and directory (client)
+- Deploy
 
+### Render Deployment
+- Create an account on render
+- Choose new Web Service
+- Import your GiHub repository
+- Choose your branch (usually main) and directory (api)
+- Add environment variables
+- Deploy
 
-
+## Contributors 
+[Muskan Garg](https://github.com/MuskanGarg24)
 
