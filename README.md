@@ -22,7 +22,7 @@ The goal of this assignment is to create a web application that allows users to 
 ## Technologies Used
 - Frontend: Next.js, Tailwind CSS
 - Backend: Node.js, MongoDB
-- Deployment: Vercel (frontend), Netlify (backend)
+- Deployment: Vercel (frontend), Render (backend)
 
 ## Features 
 - User authentication (login and signup)
