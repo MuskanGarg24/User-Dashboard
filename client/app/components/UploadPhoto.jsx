@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import Avatar from '../../public/user.png';
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const UploadPhoto = () => {
 
@@ -17,12 +18,6 @@ const UploadPhoto = () => {
 
     // User's current profile image
     const [userImage, setUserImage] = useState(null);
-
-
-    // Fetch user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch user's current profile image from the server
     useEffect(() => {
@@ -79,7 +74,7 @@ const UploadPhoto = () => {
         }
     };
 
-    
+
     return (
         <div className="sm:flex text-center sm:justify-between mb-2 p-5 pt-2">
             <div className="flex justify-center">

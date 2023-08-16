@@ -1,6 +1,7 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const BasicDetails = () => {
 
@@ -23,11 +24,6 @@ const BasicDetails = () => {
         email: '',
         phone: ''
     });
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {

@@ -1,6 +1,7 @@
 "use client"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { userId } from '../utils/userId';
 
 const Education = () => {
 
@@ -13,12 +14,6 @@ const Education = () => {
         end: '',
         description: '',
     });
-
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch education details when the component mounts
     useEffect(() => {

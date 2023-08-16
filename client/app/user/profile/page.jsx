@@ -1,5 +1,4 @@
 // Import components from specific paths
-
 import About from '@/app/components/About'
 import BasicDetails from '@/app/components/BasicDetails'
 import Certifications from '@/app/components/Certifications'
@@ -10,6 +9,7 @@ import ProfessionalDetails from '@/app/components/ProfessionalDetails'
 import Skills from '@/app/components/Skills'
 import UploadPhoto from '@/app/components/UploadPhoto'
 import React from 'react'
+
 
 const page = () => {
     return (

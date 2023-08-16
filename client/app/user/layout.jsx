@@ -12,6 +12,8 @@ import AuthChecker from "../components/AuthChecker";
 import { usePathname } from "next/navigation";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { userId } from "../utils/userId";
+
 
 export default function layout({ children }) {
 
@@ -55,11 +57,6 @@ export default function layout({ children }) {
 
     // state for user image
     const [userImage, setUserImage] = useState(null);
-
-
-    // User data retrieval from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
 
 
     // fetch user image function

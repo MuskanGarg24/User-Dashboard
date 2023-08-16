@@ -28,7 +28,7 @@ const LoginForm = () => {
         try {
             const response = await axios.post("http://localhost:5000/api/auth/login", { email, password });
             // Store user data in session storage and navigate to the user's profile page
-            sessionStorage.setItem('userData', JSON.stringify(response.data));
+            sessionStorage.setItem('userData', JSON.stringify(response.data._id));
             router.push("/user/profile");
         }
         catch (error) {

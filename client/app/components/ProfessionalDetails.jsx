@@ -3,18 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Star from '../../public/stars.png';
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const ProfessionalDetails = () => {
 
     // State to manage edit mode and professional text
     const [editMode, setEditMode] = useState(false);
     const [professionalText, setProfessionalText] = useState('');
-
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch user's professional details from the server
     useEffect(() => {

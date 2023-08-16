@@ -1,16 +1,13 @@
 "use client"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const About = () => {
 
     // State variables for controlling edit mode and about text
     const [editMode, setEditMode] = useState(false);
     const [aboutText, setAboutText] = useState('');
-
-     // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
 
     // Effect hook that fetches user data from the server when the component mounts or userId changes
     useEffect(() => {
@@ -29,7 +26,7 @@ const About = () => {
         setEditMode(true);
     };
 
-     // Function to save changes made in edit mode
+    // Function to save changes made in edit mode
     const handleSave = async () => {
         try {
             await axios.put(`http://localhost:5000/api/user/update/${userId}`, { about: aboutText });

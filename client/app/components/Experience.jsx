@@ -3,18 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Logo from "../../public/oru_logo.png";
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const Experience = () => {
 
     // State variables for storing experiences and tracking edited experience index
     const [experiences, setExperiences] = useState([]);
     const [editedExperienceIndex, setEditedExperienceIndex] = useState("");
-
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch user experiences when the component mounts
     useEffect(() => {

@@ -3,18 +3,13 @@ import React, { useState, useEffect } from 'react';
 import Image from "next/image";
 import Badge from "../../public/badge.png";
 import axios from 'axios';
+import { userId } from '../utils/userId';
 
 const Certifications = () => {
 
     // State variables for controlling edit mode and certifications
     const [editable, setEditable] = useState(false);
     const [certifications, setCertifications] = useState([]);
-
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
-
 
     // Fetch user data from the server when the component mounts or userId changes
     useEffect(() => {
@@ -28,12 +23,10 @@ const Certifications = () => {
             });
     }, [userId]);
 
-
     // Function to enable edit mode
     const handleEditClick = () => {
         setEditable(true);
     };
-
 
     // Function to save changes made in edit mode
     const handleSaveClick = async () => {
@@ -44,7 +37,6 @@ const Certifications = () => {
             console.error('Error updating certifications:', error);
         }
     };
-
 
     // Function to cancel edit mode
     const handleCancelClick = () => {

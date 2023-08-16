@@ -1,6 +1,7 @@
 "use client"
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
+import { userId } from '../utils/userId';
 
 const Skills = () => {
 
@@ -9,11 +10,6 @@ const Skills = () => {
     const [skills, setSkills] = useState([]);
     const [editedSkills, setEditedSkills] = useState([]);
     const [newSkill, setNewSkill] = useState('');
-
-
-    // Retrieve user data from session storage
-    const userData = JSON.parse(sessionStorage.getItem('userData'));
-    const userId = userData?._id;
 
 
     // Fetch user data from the server when component mounts
