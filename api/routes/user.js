@@ -10,7 +10,6 @@ router.post("/uploads/:userId", async (req, res) => {
         return res.status(404).json({ message: "User not found" });
     }
     const { image } = req.body;
-    console.log(image);
     try {
         if (image) {
             const uploadRes = await cloudinary.uploader.upload(image, {
